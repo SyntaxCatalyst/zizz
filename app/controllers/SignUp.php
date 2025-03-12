@@ -85,4 +85,3 @@ class SignUp
     }
 }
 
-// Call the function when the script runs
