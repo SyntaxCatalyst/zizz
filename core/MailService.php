@@ -25,7 +25,7 @@ class MailService
             $this->mail->SMTPAuth = true;
             $this->mail->Username = Config::get('MAIL_USERNAME');
             $this->mail->Password = Config::get('MAIL_PASSWORD');
-            $this->mail->SMTPSecure = 'PHPMailer::ENCRYPTION_STARTTLS';
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $this->mail->Port = Config::get('MAIL_PORT') ?: 587;
             $this->mail->setFrom(Config::get('MAIL_FROM_ADDRESS'), Config::get('MAIL_FROM_NAME'));
         } catch (Exception $e) {
