@@ -103,7 +103,7 @@ class VerifyEmail
         $user = $userInstance->findByEmail($email);
 
         if (!$user) return ['status' => 'error', 'message' => 'User not found.'];
-        if ($user->is_verified) return ['status' => 'error', 'message' => 'Email is already verified.'];
+        if ($user->verification_status == "verified") return ['status' => 'error', 'message' => 'Email is already verified.']; // Menggunakan 'verification_status' sesuai verifyEmail
 
         $waitTimes = [1, 2, 3, 4, 5];
         $attempts = $user->request_attempts ?? 0;
@@ -119,7 +119,14 @@ class VerifyEmail
         $newCode = rand(100000, 999999);
         $emailTemplate = file_get_contents(__DIR__ . '/../../pages/email_template/verify.php');
 
+        // Ambil nama pengguna dari objek $user
+        // Asumsikan ada kolom 'username' atau 'name' di tabel users Anda
+        $username = $user->username ?? $user->name ?? 'Pengguna'; // Default jika tidak ada
+
+        // Ganti placeholder {{VERIFICATION_CODE}}
         $emailBody = str_replace('{{VERIFICATION_CODE}}', $newCode, $emailTemplate);
+        // Ganti placeholder {{USERNAME_ATAU_NAMA_DEPAN_JIKA_ADA}}
+        $emailBody = str_replace('{{USERNAME_ATAU_NAMA_DEPAN_JIKA_ADA}}', $username, $emailBody); // Baris baru
 
         if ($this->mailService->sendEmail($email, "Your Verification Code", $emailBody)) {
 

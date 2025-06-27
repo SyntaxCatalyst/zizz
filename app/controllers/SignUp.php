@@ -45,6 +45,7 @@ class SignUp
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $email = $_POST['email'];
         $verificationCode = rand(100000, 999999);
+        $role = 'user'; // Default role
 
 
 

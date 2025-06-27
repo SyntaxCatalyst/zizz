@@ -1,23 +1,17 @@
 <?php
-
 use Utils\Helper;
 
 $csrfToken = Helper::generateCsrfToken();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="assets/css/auth_styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
 </head>
-
 <body>
     <div class="container">
         <div class="left">
@@ -26,9 +20,18 @@ $csrfToken = Helper::generateCsrfToken();
         </div>
         <div class="right">
             <h2>Sign In</h2>
-            <?php if (isset($_SESSION['errors'])): ?>
+            <!-- Error messages displayed above the form with looping -->
+            <?php if (isset($_SESSION['errors']) && !empty($_SESSION['errors'])): ?>
                 <div class="error-messages">
-                    <?php Helper::showError("general") ?>
+                    <?php foreach ($_SESSION['errors'] as $field => $error): ?>
+                        <?php if (is_array($error)): ?>
+                            <?php foreach ($error as $msg): ?>
+                                <p class="error"><?= htmlspecialchars($msg) ?></p>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="error"><?= htmlspecialchars($error) ?></p>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
 
@@ -37,13 +40,11 @@ $csrfToken = Helper::generateCsrfToken();
 
                 <div class="input-group">
                     <input type="text" name="email" <?= Helper::oldValue("email", "Enter your email") ?> required>
-                    <?php Helper::showError("email") ?>
-
+                    
                 </div>
                 <div class="input-group">
-                    <input type="password" name="password" <?= Helper::oldValue('password', 'Password') ?> required>
-                    <?php Helper::showError("password") ?>
-
+                    <input type="password" name="password" <?= Helper::oldValue("password", "Password") ?> required>
+                    
                     <i class="fa fa-eye"></i>
                 </div>
                 <div class="options">
@@ -60,7 +61,6 @@ $csrfToken = Helper::generateCsrfToken();
     </div>
     <script src="assets/javascript/main.js"></script>
 </body>
-
 </html>
 <?php
 unset($_SESSION['errors']);

@@ -1,13 +1,14 @@
 <?php
 
+
+
+require_once __DIR__ . '/../../Utils/Helper.php'; // Adjust the path as per your directory structure
+
 use Utils\Helper;
 
-$user = $_SESSION['user'];
+$user = $_SESSION['user'] ?? null; // Use null coalescing operator to avoid error if $_SESSION['user'] is not set
 
 $csrfToken = Helper::generateCsrfToken();
-
-
-
 
 ?>
 
@@ -47,12 +48,12 @@ $csrfToken = Helper::generateCsrfToken();
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" <?= Helper::oldValue('name', "$user[name]"); ?>>
+                <input type="text" name="name" id="name" <?= Helper::oldValue('name', $user['name'] ?? ''); ?>>
                 <?= Helper::showError('name') ?>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" name="email" value="<?= $user['email']; ?>" disabled>
+                <input id="email" name="email" value="<?= $user['email'] ?? ''; ?>" disabled>
             </div>
             <button name="update-profile" type="submit" class="btn">Update Profile</button>
         </form>

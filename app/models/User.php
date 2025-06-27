@@ -24,10 +24,10 @@ class User extends BaseModel
         return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
 
-    public function createUser($name, $email, $password, $verificationCode)
+    public function createUser($name, $email, $password, $verificationCode, $role = 'user')
     {
-        $stmt = $this->pdo->prepare("INSERT INTO {$this->table} (name, email, password,verification_code) VALUES (?, ?, ?,?)");
-        return $stmt->execute([$name, $email, $password, $verificationCode]);
+        $stmt = $this->pdo->prepare("INSERT INTO {$this->table} (name, email, password, verification_code, role) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([$name, $email, $password, $verificationCode, $role]);
     }
     public function findByEmail($email)
     {

@@ -27,16 +27,44 @@ class AppRouter
     {
         $router = self::init();
 
-        // Home route
+        // Landing Page Route - Atur ini sebagai default
         $router->get('/', function () {
-            Middleware::requireAuth();
-            require __DIR__ . '/../pages/home.php';
+            require __DIR__ . '/../pages/landing.php'; // Arahkan ke landing.php
         });
+
+
+        // Home route (jika sudah login)
         $router->get('/home', function () {
             Middleware::requireAuth();
             require __DIR__ . '/../pages/home.php';
         });
 
+        // Admin Dashboard route ( jika sudah login dan dia admin)
+        $router->get('/admin', function () {
+            Middleware::adminOnly();
+            require __DIR__ . '/../pages/admin/dashboard.php';
+        });
+
+        $router->get('/admin/products-manager', function() {
+            Middleware::adminOnly();
+            require __DIR__ . '/../pages/admin/products.php';
+        });
+        $router->get('/admin/category-manager', function() {
+            Middleware::adminOnly();
+            require __DIR__ . '/../pages/admin/categories.php';
+        });
+        $router->get('/admin/users-manager', function() {
+            Middleware::adminOnly();
+            require __DIR__ . '/../pages/admin/users.php';
+        });
+        $router->get('/admin/settings', function() {
+            Middleware::adminOnly();
+            require __DIR__ . '/../pages/admin/settings.php';
+        });
+        $router->get('/admin/orders-manager', function() {
+            Middleware::adminOnly();
+            require __DIR__ . '/../pages/admin/orders.php';
+        });
 
         // Authentication routes
         $router->get('/sign-in', function () {
@@ -110,8 +138,7 @@ class AppRouter
 
         //worldcard
         $router->set404(function () {
-            header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
-            echo "404 - Page Not Found!";
+            require __DIR__ . '/../pages/404.php';
         });
     }
 

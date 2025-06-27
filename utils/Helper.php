@@ -47,10 +47,10 @@ class Helper
     {
         if (!empty($_SESSION['errors'][$field])) {
             if (is_array($_SESSION['errors'][$field])) {
-                echo '<p class="error">' . implode('<br>', $_SESSION['errors'][$field]) . '</p>';
+                echo '<div class="error-messages"><p class="error">' . implode('<br>', $_SESSION['errors'][$field]) . '</p></div>';
             } else {
-                echo '<p class="error">' . '<br>', $_SESSION['errors'][$field] . '</p>';
-            };
+                echo '<div class="error-messages"><p class="error">' . htmlspecialchars($_SESSION['errors'][$field]) . '</p></div>';
+            }
         }
     }
 

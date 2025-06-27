@@ -47,6 +47,7 @@ class SignIn
                     'email' => $user->email,
                     'email_encrypted' => Helper::encryptEmail($user->email),
                     'last_activity' => time(),
+                    'role' => $user->role,
 
                 ];
                 if (!empty($_POST['remember_me'])) {

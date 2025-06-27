@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-  
   const profileLink = document.getElementById("profileLink");
   const dropdown = document.querySelector(".dropdown"); // Get first matching dropdown
 
@@ -38,4 +36,28 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Dark mode toggle
+  const darkModeToggle = document.getElementById("darkModeToggle");
+  const body = document.body;
+
+  // Load saved theme from localStorage
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    body.classList.add("dark-mode");
+    darkModeToggle.textContent = "Light Mode";
+  } else {
+    darkModeToggle.textContent = "Dark Mode";
+  }
+
+  darkModeToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    if (body.classList.contains("dark-mode")) {
+      darkModeToggle.textContent = "Light Mode";
+      localStorage.setItem("theme", "dark");
+    } else {
+      darkModeToggle.textContent = "Dark Mode";
+      localStorage.setItem("theme", "light");
+    }
+  });
 });

@@ -1,18 +1,19 @@
 @import url(globals.css);
 
 body {
-    background: #f3f4f6;
-    color: #333;
+    background: var(--bg-color);
+    color: var(--text-color-primary);
 }
 
 .navbar {
     width: 100%;
-    background: #fff;
+    background: var(--element-bg-color);
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--border-color); /* Subtle border */
 }
 
 .brand {
@@ -26,6 +27,8 @@ body {
     align-items: center;
     cursor: pointer;
     position: relative;
+    color: var(--text-color-primary);
+    font-weight: 500;
 }
 
 .profile img {
@@ -33,31 +36,36 @@ body {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
+    border: 2px solid var(--primary-color); /* Accent border on avatar */
 }
 
 .dropdown {
     display: none;
     position: absolute;
-    top: 50px;
+    top: 55px; /* Adjusted position */
     right: 0;
-    background: #fff;
-    box-shadow: var(--box-shadow);
-    border-radius: 5px;
+    background: var(--element-bg-color);
+    box-shadow: var(--shadow);
+    border-radius: 8px; /* More rounded */
     overflow: hidden;
-    min-width: 150px;
+    min-width: 180px; /* Wider dropdown */
+    z-index: 100;
+    border: 1px solid var(--border-color); /* Subtle border */
 }
 
 .dropdown a {
     display: block;
-    padding: 10px;
+    padding: 12px 15px; /* More padding */
     text-decoration: none;
-    color: #333;
-    transition: background 0.3s;
+    color: var(--text-color-primary);
+    transition: background 0.3s, color 0.3s;
+    font-weight: 500;
 }
 
 .dropdown a:hover {
     background: var(--primary-color);
-    color: var(--text-color);
+    color: var(--element-bg-color); /* Light text on primary background */
 }
 
 .show {
@@ -67,41 +75,125 @@ body {
 .container {
     max-width: 900px;
     margin: 50px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--box-shadow);
+    background: var(--element-bg-color);
+    padding: 40px; /* More padding */
+    border-radius: 12px; /* More rounded */
+    box-shadow: var(--shadow);
     text-align: center;
+    color: var(--text-color-primary);
+    border: 1px solid var(--border-color); /* Subtle border */
 }
 
 .container h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem; /* Larger heading */
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
 .container p {
-    font-size: 1.2rem;
-    color: #666;
+    font-size: 1.3rem; /* Larger paragraph */
+    color: var(--text-color-secondary);
 }
 
-.error {
-    color: rgb(223, 8, 8);
-    text-align: center;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+    .brand {
+        font-size: 1.3rem;
+    }
+    .profile span {
+        font-size: 0.9rem;
+    }
+    .profile img {
+        width: 35px;
+        height: 35px;
+    }
+    .dropdown {
+        min-width: 140px;
+        top: 45px;
+    }
+    .dropdown a {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    .container {
+        margin: 30px 15px;
+        padding: 30px;
+    }
+    .container h1 {
+        font-size: 2rem;
+    }
+    .container p {
+        font-size: 1.1rem;
+    }
 }
 
-.error-messages,
-.success-messages {
-    padding: 0.2em 0.5em;
-    text-align: center;
-    border-radius:12px;
-    margin-bottom:1em;
+/* Animations and transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-.error-messages{
-background:rgb(235, 79, 79);
+
+.container {
+    animation: fadeIn 0.8s ease forwards;
 }
-.success-messages{
-    background:rgb(89, 213, 89);
+
+.navbar {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
-.error-messages .error, .success-messages .success{
-    color:whitesmoke;
+
+.profile:hover .dropdown,
+.profile:focus-within .dropdown {
+    display: block;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.dropdown a {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profile {
+    transition: color 0.3s ease;
+}
+
+.profile:hover,
+.profile:focus-within {
+    color: var(--primary-color);
+}
+
+/* Dark mode toggle button */
+#darkModeToggle {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 15px;
+}
+
+#darkModeToggle:hover {
+    background-color: var(--primary-color);
+    color: var(--element-bg-color);
+}
+
+/* Responsive adjustments for dark mode toggle */
+@media (max-width: 768px) {
+    #darkModeToggle {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        margin-left: 10px;
+    }
 }
